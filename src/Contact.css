@@ -1,0 +1,20 @@
+.contact-card {
+    max-width: 80%;
+    margin: auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .contact-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .contact-card p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+  }
+  
