@@ -88,11 +88,13 @@ body {
 }
 
 .aim {
-    background-color: #A8B792;
+    background-color: #D3D3D3;
     padding: 20px;
-    color: white;
+    color: rgb(0, 0, 0);
     margin-top: 20px;
     border-radius: 5px;
+    font-style: oblique;
+    font-weight: bold;
 }
 
 .forum-activity {

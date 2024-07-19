@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import './Forum.css';
-import lasagnaPic from './images/lasagna.png';  
+import lasagnaPic from './images/lasagna.png';
 import chocolatecake from './images/chocolatecake.png';
+import PostPictureForm from './PostPictureForm.js';
 
 const Forum = () => {
   const [repliesVisible, setRepliesVisible] = useState({
     discussion1: false,
     discussion2: false,
-    discussion3: false, // New discussion for poll
+    discussion3: false,
   });
 
-  // loading initial poll options state from local storage
   const initialPollOptions = () => {
     const storedOptions = localStorage.getItem('pollOptions');
     return storedOptions ? JSON.parse(storedOptions) : {
@@ -22,24 +22,24 @@ const Forum = () => {
   };
 
   const [pollOptions, setPollOptions] = useState(initialPollOptions);
-  const [voted, setVoted] = useState(false); //track if user has voted
+  const [voted, setVoted] = useState(false);
+  const [showPostPictureForm, setShowPostPictureForm] = useState(false);
+  const [posts, setPosts] = useState([]);
 
-  // Save poll options state to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem('pollOptions', JSON.stringify(pollOptions));
   }, [pollOptions]);
 
   const handleVote = (option) => {
-    // handling of voting (need to upgrade backend eventually)
     if (!voted) {
-      setPollOptions(prevOptions => ({
+      setPollOptions((prevOptions) => ({
         ...prevOptions,
         [option]: {
           ...prevOptions[option],
-          votes: prevOptions[option].votes + 1
-        }
+          votes: prevOptions[option].votes + 1,
+        },
       }));
-      setVoted(true); // set voted to true after user votes
+      setVoted(true);
     }
   };
 
@@ -56,7 +56,7 @@ const Forum = () => {
             <p>
               Cook and drain the ground beef, then stir in the spaghetti sauce and simmer. Combine the cottage cheese, 2 cups of mozzarella, eggs, half of the Parmesan, and seasonings. Assemble the lasagna. Bake, covered, for 45 minutes. Uncover and continue baking for 10 minutes.
             </p>
-            
+
             <p>
               1 pound lean ground beef, 1 (32 ounce) jar spaghetti sauce, 32 ounces cottage cheese, 3 cups shredded mozzarella cheese divided, 2 eggs, ½ cup grated Parmesan cheese, 2 teaspoons dried parsley, salt to taste, ground black pepper to taste, 9 lasagna noodles, ½ cup water
             </p>
@@ -70,18 +70,58 @@ const Forum = () => {
   };
 
   const handleAddFriend = (username) => {
-    alert(`Added ${username} as a friend!`); // Placeholder for actual friend adding logic
+    alert(`Added ${username} as a friend!`);
+  };
+
+  const handlePostSubmit = (post) => {
+    setPosts([...posts, post]);
+    setShowPostPictureForm(false); // Hide form after submission
+  };
+
+  const handleDeletePost = (index) => {
+    setPosts(posts.filter((_, i) => i !== index)); // Remove post by index
   };
 
   return (
     <div className="forum-container">
       <h3>Post your food creation and even share the recipe! Start a discussion post to chat with fellow foodies or reply to an existing one! No account required.</h3>
       <div className="post-buttons">
-        <button className="post-button">Post a Picture</button>
+        <button className="post-button" onClick={() => setShowPostPictureForm(true)}>Post a Picture</button>
         <button className="post-button">Start a Discussion</button>
       </div>
+
+      {showPostPictureForm && (
+        <PostPictureForm onSubmit={handlePostSubmit} onClose={() => setShowPostPictureForm(false)} />
+      )}
+
       <div className="posts">
-        {/* Picture Posts */}
+        {/* Display posts from state */}
+        {posts.map((post, index) => (
+          <div className="post" key={index}>
+            <div className="user-info">
+              <h3>{post.postAs === 'anonymous' ? 'Anonymous' : 'User'}</h3>
+              <button className="add-friend-button" onClick={() => handleDeletePost(index)}>Delete Post</button>
+            </div>
+            <div className="post-image">
+              <img src={URL.createObjectURL(post.picture)} alt="Post" className="post-image-content" />
+            </div>
+            <div className="post-caption">
+              {post.caption}
+              {post.recipe && (
+                <div className="expandable-caption">
+                  <button onClick={() => setRepliesVisible(prevState => ({ ...prevState, [`discussion${index}`]: !prevState[`discussion${index}`] }))}>
+                    {repliesVisible[`discussion${index}`] ? 'Show Less' : 'Show More'}
+                  </button>
+                  {repliesVisible[`discussion${index}`] && (
+                    <p>{post.recipe}</p>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        ))}
+
+        {/* Example Static Posts */}
         <div className="post">
           <div className="user-info">
             <h3>User1111</h3>
@@ -96,12 +136,12 @@ const Forum = () => {
           </div>
         </div>
         <div className="post">
-        <div className="user-info">
-          <h3>User2222 posted</h3>
-          <button className="add-friend-button" onClick={() => handleAddFriend('User2222')}>Add User as Friend</button>
-        </div>
+          <div className="user-info">
+            <h3>User2222 posted</h3>
+            <button className="add-friend-button" onClick={() => handleAddFriend('User2222')}>Add User as Friend</button>
+          </div>
           <div className="post-image">
-            <img src={chocolatecake} alt="ChocolateCake" className="post-image-content" /> {}
+            <img src={chocolatecake} alt="ChocolateCake" className="post-image-content" />
           </div>
           <div className="post-caption">Delicious chocolate cake I made yesterday!</div>
         </div>
@@ -138,13 +178,13 @@ const Forum = () => {
         <div className="discussion-post">
           <h4>Which recipe should I make tonight?</h4>
           <p>Like the title says, I'm wondering what I should make tonight?</p>
-          
+
           {voted && (
             <p className="poll-ended">You have voted. See current results:</p>
           )}
 
           <div className="poll-results">
-            {Object.keys(pollOptions).map(option => (
+            {Object.keys(pollOptions).map((option) => (
               <div key={option} className="poll-option">
                 <div className="option-label">{pollOptions[option].label}</div>
                 <div className="option-bar">
@@ -158,7 +198,7 @@ const Forum = () => {
 
           {!voted && (
             <div className="poll-options">
-              {Object.keys(pollOptions).map(option => (
+              {Object.keys(pollOptions).map((option) => (
                 <button key={option} className="poll-button" onClick={() => handleVote(option)} disabled={voted}>
                   {pollOptions[option].label}
                 </button>

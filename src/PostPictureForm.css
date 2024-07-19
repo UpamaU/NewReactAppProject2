@@ -1,0 +1,69 @@
+.post-picture-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+  }
+  
+  .post-picture-form h2 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .post-picture-form div {
+    margin-bottom: 15px;
+  }
+  
+  .post-picture-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .post-picture-form input[type="text"],
+  .post-picture-form textarea,
+  .post-picture-form input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .post-picture-form textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  .post-picture-form input[type="radio"] {
+    margin-right: 10px;
+  }
+  
+  .post-picture-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #007BFF;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .post-picture-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .post-picture-form .cancel-button {
+    background-color: #6c757d;
+  }
+  
+  .post-picture-form .cancel-button:hover {
+    background-color: #5a6268;
+  }
+  
+  
