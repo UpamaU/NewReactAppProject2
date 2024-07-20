@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import alfredopic from './images/alfredo.png';
 import veggiestirfrypic from './images/veggiestirfry.png';
 import chocolatecake from './images/chocolatecake.png';
+import pancakepic from './images/pancake.png';
+import cookiepic from './images/cookie.png';
 import './RecipeDetail.css';
 
 const RecipeDetail = () => {
@@ -117,6 +119,70 @@ const RecipeDetail = () => {
         { id: 2, username: 'BakerExtraordinaire', rating: 4, review: 'Great recipe, very easy to follow.' },
       ],
     },
+    4: {
+      id: 4,
+      name: 'Good Old-Fashioned Pancakes',
+      rating: 4.5,
+      image: pancakepic,
+      content: 'This pancake recipe produces thick, fluffy, and all-around delicious pancakes with just a few ingredients that are probably already in your kitchen. It\'s so much better than the boxed stuff.',
+      cookingTime: '20 minutes',
+      servings: '8',
+      difficulty: 'Easy',
+      ingredients: [
+        '1 ½ cups all-purpose flour',
+        '3 ½ teaspoons baking powder',
+        '1 tablespoon white sugar',
+        '¼ teaspoon salt, or more to taste',
+        '1 ¼ cups milk',
+        '3 tablespoons butter, melted',
+        '1 egg'
+      ],
+      directions: [
+        'Sift flour, baking powder, sugar, and salt together in a large bowl. Make a well in the center and add milk, melted butter, and egg; mix until smooth.',
+        'Heat a lightly oiled griddle or pan over medium-high heat. Pour or scoop the batter onto the griddle, using approximately 1/4 cup for each pancake; cook until bubbles form and the edges are dry, about 2 to 3 minutes. Flip and cook until browned on the other side. Repeat with remaining batter.'
+      ],
+      reviews: [
+        { id: 1, username: 'BreakfastLover', rating: 5, review: 'Perfect pancakes every time. Family favorite!' },
+        { id: 2, username: 'PancakeFanatic', rating: 4, review: 'Delicious and easy to make. Great recipe!' }
+      ]
+    },
+
+    5: {
+      id: 5,
+      name: 'Best Chocolate Chip Cookies',
+      rating: 4.8,
+      image: cookiepic,
+      content: 'This chocolate chip cookie recipe makes delicious cookies with crisp edges and chewy middles. A beloved recipe among thousands!',
+      cookingTime: '30 minutes',
+      servings: '48',
+      difficulty: 'Easy',
+      ingredients: [
+        '1 cup butter, softened',
+        '1 cup white sugar',
+        '1 cup packed brown sugar',
+        '2 eggs',
+        '2 teaspoons vanilla extract',
+        '1 teaspoon baking soda',
+        '2 teaspoons hot water',
+        '½ teaspoon salt',
+        '3 cups all-purpose flour',
+        '2 cups semisweet chocolate chips',
+        '1 cup chopped walnuts (optional)'
+      ],
+      directions: [
+        'Preheat the oven to 350 degrees F (175 degrees C). Beat butter, white sugar, and brown sugar with an electric mixer in a large bowl until smooth.',
+        'Beat in eggs, one at a time, then stir in vanilla.',
+        'Dissolve baking soda in hot water. Add to batter along with salt.',
+        'Stir in flour, chocolate chips, and walnuts.',
+        'Drop spoonfuls of dough 2 inches apart onto ungreased baking sheets.',
+        'Bake in the preheated oven until edges are nicely browned, about 10 minutes.',
+        'Cool on the baking sheets briefly before removing to a wire rack to cool completely.'
+      ],
+      reviews: [
+        { id: 1, username: 'CookieLover', rating: 5, review: 'Best chocolate chip cookies ever! Perfectly chewy and delicious.' },
+        { id: 2, username: 'SweetTooth', rating: 4, review: 'Great recipe! Cookies came out perfect, though I added a bit more chocolate chips.' }
+      ]
+    }
   };
 
   const recipe = recipes[id];

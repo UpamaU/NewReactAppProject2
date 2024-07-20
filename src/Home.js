@@ -110,12 +110,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      <footer>
-        <p>Mealsforu@gmail.com</p>
-        <p>000-000-0000</p>
-        <p>Your number one choice for all things food.</p>
-      </footer>
     </div>
   );
 };

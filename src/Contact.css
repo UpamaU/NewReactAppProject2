@@ -1,40 +1,42 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.contact-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .contact {
   display: flex;
-  justify-content:space-evenly;
-  flex-wrap: wrap;
+  flex-direction: column; 
+  align-items: center;
   gap: 20px;
   padding: 20px;
+  flex: 1; 
 }
+
 .contact-card {
-  flex: 1 1 300px; 
+  width: 100%;
+  max-width: 800px; 
   padding: 20px;
   background-color: #D3D3D3;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   text-align: center;
-  margin-bottom: 20px;
-  }
+  box-sizing: border-box; 
+}
 
-  .contact-container {
-    margin-top: auto;
-    padding: 20px;
-    box-sizing: border-box;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: left;
-  }
-  
-  .contact-card h2 {
-    font-size: 1.7rem;
-    margin-bottom: 10px;
-    text-align: center;
-    color: #333;
-  }
-  
-  .contact-card p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    text-align: center;
-    color:#565555;
-  }
-  
+.contact-card h2 {
+  font-size: 1.7rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.contact-card p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #565555;
+}

@@ -1,0 +1,15 @@
+footer {
+    background-color: #404F24;
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    width: 100%; 
+    box-sizing: border-box; 
+    margin-top: auto; 
+  }
+  
+  footer p {
+    margin: 5px 0;
+  }
+  

@@ -1,28 +1,37 @@
 .about {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .about-card {
-    flex: 1 1 300px; 
-    padding: 20px;
-    background-color: #D3D3D3;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    text-align: center;
-  }
-  
-  .about-card h2 {
-    font-size: 2.5rem;
-    color: #333;
-  }
-  
-  .about-card p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: #565555;
-  }
-  
+  display: flex;
+  flex-direction: column; 
+  align-items: center; 
+  gap: 20px;
+  padding: 20px;
+  margin: 0 auto; 
+  width: 40%; 
+  box-sizing: border-box;
+}
+
+.about-card {
+  width: 100%; 
+  padding: 20px;
+  background-color: #D3D3D3;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  text-align: center;
+  box-sizing: border-box; 
+}
+
+.about-card h2 {
+  font-size: 1.7rem; 
+  color: #333;
+}
+
+.about-card p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #565555;
+}
+
+.about::after {
+  content: ''; 
+  display: block;
+  height: 40px;
+}

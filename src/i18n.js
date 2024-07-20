@@ -6,6 +6,7 @@ const resources = {
     translation: {
       "Meals4U": "Meals4U",
       "Sign In": "Sign In",
+      "Log Out": "Log out",
       "Recipes": "Recipes",
       "Forum": "Forum",
       "Contact": "Contact",
@@ -21,6 +22,7 @@ const resources = {
     translation: {
       "Meals4U": "Repas4Vous",
       "Sign In": "Se Connecter",
+      "Log Out": "Déconnecter",
       "Recipes": "Recettes",
       "Forum": "Forum",
       "Contact": "Contact",

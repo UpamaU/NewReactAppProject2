@@ -141,18 +141,6 @@ body {
     border-radius: 5px;
 }
 
-footer {
-    background-color: #404F24;
-    color: white;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 5px;
-}
-
-footer p {
-    margin: 5px 0;
-}
-
 @media (max-width: 768px) {
     .forum-cards {
         flex-direction: column;

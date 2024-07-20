@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import alfredopic from './images/alfredo.png';  
 import veggiestirfrypic from './images/veggiestirfry.png';  
 import chocolatecake from './images/chocolatecake.png';
+import pancakepic from './images/pancake.png';  
+import cookiepic from './images/cookie.png';
 import './Recipes.css';
 
 const initialRecipes = [
@@ -30,6 +32,22 @@ const initialRecipes = [
     content: 'This Chocolate Cake is a rich and moist dessert...',
     ingredients: ['All-purpose flour', 'Sugar', 'Cocoa powder', 'Baking powder', 'Eggs', 'Milk', 'Butter'],
   },
+  { 
+    id: 4, 
+    name: 'Pancakes', 
+    rating: 4.6, 
+    image: pancakepic, 
+    content: 'These Pancakes dessert are fluffy and delicious...',
+    ingredients: [ 'All-purpose flour','Baking powder','White sugar','Salt','Milk', 'Butter', 'egg'],
+  },
+  {
+    id: 5,
+    name: 'Chocolate Chip Cookies',
+    rating: 4.8,
+    image: cookiepic,
+    content: 'This chocolate chip cookie dessert recipe makes delicious cookies with crisp edges and chewy middles. A beloved recipe among thousands!',
+    ingredients: ['Butter','White sugar','Brown sugar', 'Eggs','Vanilla extract','Baking soda', 'Hot water','Salt',  'All-purpose flour',  'Semisweet chocolate chips', 'Chopped walnuts (optional)']
+  }
 ];
 
 const popularSearches = [
@@ -40,6 +58,7 @@ const popularSearches = [
 const Recipes = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [recipes] = useState(initialRecipes);
+  const [sortBy, setSortBy] = useState('default');
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -49,10 +68,22 @@ const Recipes = () => {
     setSearchTerm(term);
   };
 
+  const handleSortChange = () => {
+    setSortBy(sortBy === 'default' ? 'rating' : 'default');
+  };
+
   const filteredRecipes = recipes.filter((recipe) =>
     recipe.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    recipe.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
     recipe.ingredients.some((ingredient) => ingredient.toLowerCase().includes(searchTerm.toLowerCase()))
   );
+
+  const sortedRecipes = [...filteredRecipes].sort((a, b) => {
+    if (sortBy === 'rating') {
+      return b.rating - a.rating; // sort by rating in descending order
+    }
+    return 0; // default sorting (no change)
+  });
 
   return (
     <div className="recipes-page">
@@ -74,19 +105,26 @@ const Recipes = () => {
             </button>
           ))}
         </div>
+        <button className="sort-button" onClick={handleSortChange}>
+          {sortBy === 'rating' ? 'Sort by Default' : 'Sort by Top Rated'}
+        </button>
       </div>
       <div className="recipe-list">
-        {filteredRecipes.map((recipe) => (
-          <div key={recipe.id} className="recipe-card">
-            <Link to={`/recipe/${recipe.id}`}>
-              <img src={recipe.image} alt={recipe.name} className="recipe-image" />
-              <div className="recipe-info">
-                <h2>{recipe.name}</h2>
-                <p>⭐ {recipe.rating}</p>
-              </div>
-            </Link>
-          </div>
-        ))}
+        {sortedRecipes.length === 0 ? (
+          <p className="no-items-message">No items found. Try a different search term!</p>
+        ) : (
+          sortedRecipes.map((recipe) => (
+            <div key={recipe.id} className="recipe-card">
+              <Link to={`/recipe/${recipe.id}`}>
+                <img src={recipe.image} alt={recipe.name} className="recipe-image" />
+                <div className="recipe-info">
+                  <h2>{recipe.name}</h2>
+                  <p>⭐ {recipe.rating}</p>
+                </div>
+              </Link>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
