@@ -41,7 +41,8 @@ body {
     border-radius: 5px;
     margin-bottom: 20px;
     text-align: left;
-    border: 2px solid rgb(109, 109, 109); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ddd;     
   }
   
   .post h3, .discussion-post h4 {

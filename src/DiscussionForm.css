@@ -1,0 +1,64 @@
+.discussion-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+  }
+  
+  .discussion-form h2 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .discussion-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .discussion-form input[type="text"],
+  .discussion-form textarea {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .discussion-form input[type="radio"] {
+    margin-right: 5px;
+  }
+  
+  .discussion-form .cancel-button {
+    margin-left: 10px;
+    background-color: #6c757d;
+    color: rgb(255, 255, 255);
+  }
+  
+  .discussion-form .cancel-button:hover {
+    background-color: #999;
+  }
+  
+  .discussion-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #007BFF;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+
+  .discussion-form .remove-button {
+    margin-left: 10px;
+    background-color: #6c757d;
+    color: rgb(255, 255, 255);
+  }
+
+  

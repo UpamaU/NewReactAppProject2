@@ -1,6 +1,6 @@
 .about {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
@@ -9,7 +9,7 @@
   .about-card {
     flex: 1 1 300px; 
     padding: 20px;
-    background-color: #fff;
+    background-color: #D3D3D3;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     text-align: center;
@@ -23,6 +23,6 @@
   .about-card p {
     font-size: 1.2rem;
     line-height: 1.6;
-    color: #666;
+    color: #565555;
   }
   

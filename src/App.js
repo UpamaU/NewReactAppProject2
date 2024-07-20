@@ -1,4 +1,3 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './Header';
@@ -9,6 +8,7 @@ import Recipes from './Recipes';
 import Forum from './Forum';
 import RecipeDetail from './RecipeDetail';
 import './App.css';
+import './i18n';
 
 function App() {
   return (
