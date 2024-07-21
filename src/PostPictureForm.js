@@ -10,7 +10,7 @@ const PostPictureForm = ({ onSubmit, onClose }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (picture && caption) {
-      onSubmit({ postAs, picture, caption, recipe });
+      onSubmit({ type: 'picture', postAs, picture, caption, recipe });
     }
   };
 
@@ -46,7 +46,12 @@ const PostPictureForm = ({ onSubmit, onClose }) => {
       <div>
         <label>
           Insert Picture:
-          <input type="file" onChange={handlePictureChange} required />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handlePictureChange}
+            required
+          />
         </label>
       </div>
       <div>

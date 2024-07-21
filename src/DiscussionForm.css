@@ -42,7 +42,7 @@
   }
   
   .discussion-form .cancel-button:hover {
-    background-color: #999;
+    background-color: #5a6268;
   }
   
   .discussion-form button {
@@ -53,6 +53,10 @@
     background-color: #007BFF;
     cursor: pointer;
     margin-right: 10px;
+  }
+
+  .discussion-form button:hover{
+    background-color: #0056b3;
   }
 
   .discussion-form .remove-button {

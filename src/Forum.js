@@ -3,19 +3,32 @@ import './Forum.css';
 import lasagnaPic from './images/lasagna.png';
 import chocolatecake from './images/chocolatecake.png';
 import PostPictureForm from './PostPictureForm.js';
-import DiscussionForm from './DiscussionForm.js'; 
+import DiscussionForm from './DiscussionForm.js';
+import PollForm from './PollForm.js'; 
 
 const Forum = () => {
-  const [repliesVisible, setRepliesVisible] = useState({});
-  const [pollOptions, setPollOptions] = useState({
-    option1: { label: 'Lasagna', votes: 0 },
-    option2: { label: 'Chocolate Cake', votes: 0 },
-    option3: { label: 'Stir-fry', votes: 0 },
-    option4: { label: 'Pasta with Pesto', votes: 0 },
+  const [repliesVisible, setRepliesVisible] = useState({
+    discussion1: false,
+    discussion2: false,
+    discussion3: false,
   });
+
+  // Initialize poll options from local storage or set default values
+  const initialPollOptions = () => {
+    const storedOptions = localStorage.getItem('pollOptions');
+    return storedOptions ? JSON.parse(storedOptions) : {
+      option1: { label: 'Lasagna', votes: 0 },
+      option2: { label: 'Chocolate Cake', votes: 0 },
+      option3: { label: 'Stir-fry', votes: 0 },
+      option4: { label: 'Pasta with Pesto', votes: 0 },
+    };
+  };
+
+  const [pollOptions, setPollOptions] = useState(initialPollOptions);
   const [voted, setVoted] = useState(false);
   const [showPostPictureForm, setShowPostPictureForm] = useState(false);
   const [showDiscussionForm, setShowDiscussionForm] = useState(false);
+  const [showPollForm, setShowPollForm] = useState(false);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -24,14 +37,13 @@ const Forum = () => {
 
   const handleVote = (option) => {
     if (!voted) {
-      setPollOptions(prevOptions => {
-        const updatedOptions = { ...prevOptions };
-        updatedOptions[option] = {
-          ...updatedOptions[option],
-          votes: updatedOptions[option].votes + 1,
-        };
-        return updatedOptions;
-      });
+      setPollOptions((prevOptions) => ({
+        ...prevOptions,
+        [option]: {
+          ...prevOptions[option],
+          votes: prevOptions[option].votes + 1,
+        },
+      }));
       setVoted(true);
     }
   };
@@ -41,35 +53,56 @@ const Forum = () => {
     return totalVotes > 0 ? ((votes / totalVotes) * 100).toFixed(2) : 0;
   };
 
-  const handlePostSubmit = (post) => {
-    setPosts([...posts, post]);
-    setShowPostPictureForm(false); // hide form after submission
-    setShowDiscussionForm(false); 
-  };
-
-  const handleDeletePost = (index) => {
-    setPosts(posts.filter((_, i) => i !== index)); 
+  const ExpandableCaption = ({ expanded, toggleExpand }) => {
+    return (
+      <div>
+        {expanded ? (
+          <>
+            <p>
+              Cook and drain the ground beef, then stir in the spaghetti sauce and simmer. Combine the cottage cheese, 2 cups of mozzarella, eggs, half of the Parmesan, and seasonings. Assemble the lasagna. Bake, covered, for 45 minutes. Uncover and continue baking for 10 minutes.
+            </p>
+            <p>
+              1 pound lean ground beef, 1 (32 ounce) jar spaghetti sauce, 32 ounces cottage cheese, 3 cups shredded mozzarella cheese divided, 2 eggs, ½ cup grated Parmesan cheese, 2 teaspoons dried parsley, salt to taste, ground black pepper to taste, 9 lasagna noodles, ½ cup water
+            </p>
+            <button onClick={toggleExpand}>Show Less</button>
+          </>
+        ) : (
+          <button onClick={toggleExpand}>Show More</button>
+        )}
+      </div>
+    );
   };
 
   const handleAddFriend = (username) => {
-    alert(`Friend request sent to ${username}`);
+    alert(`Added ${username} as a friend!`);
   };
 
-  const ExpandableCaption = ({ expanded, toggleExpand }) => (
-    <div className="expandable-caption">
-      <p>{expanded ? 'Cook and drain the ground beef, then stir in the spaghetti sauce and simmer. Combine the cottage cheese, 2 cups of mozzarella, eggs, half of the Parmesan, and seasonings. Assemble the lasagna. Bake, covered, for 45 minutes. Uncover and continue baking for 10 minutes.1 pound lean ground beef, 1 (32 ounce) jar spaghetti sauce, 32 ounces cottage cheese, 3 cups shredded mozzarella cheese divided, 2 eggs, ½ cup grated Parmesan cheese, 2 teaspoons dried parsley, salt to taste, ground black pepper to taste, 9 lasagna noodles, ½ cup water' : 'Press "Show Caption" to see the recipe description!'}</p>
-      <button onClick={toggleExpand}>
-        {expanded ? 'Hide Caption' : 'Show Caption'}
-      </button>
-    </div>
-  );
+  const handlePostSubmit = (post) => {
+    setPosts([...posts, post]);
+    setShowPostPictureForm(false); // Hide form after submission
+  };
+
+  const handleDiscussionSubmit = (discussion) => {
+    setPosts([...posts, { ...discussion, type: 'discussion' }]);
+    setShowDiscussionForm(false); // Hide form after submission
+  };
+
+  const handlePollSubmit = (poll) => {
+    setPosts([...posts, { ...poll, type: 'poll' }]);
+    setShowPollForm(false); // Hide form after submission
+  };
+
+  const handleDeletePost = (index) => {
+    setPosts(posts.filter((_, i) => i !== index)); // Remove post by index
+  };
 
   return (
     <div className="forum-container">
-      <h2>Post your food creation and even share the recipe! Start a discussion post to chat with fellow foodies or reply to an existing one! No account required.</h2>
+      <h3>Post your food creation and even share the recipe! Start a discussion post to chat with fellow foodies or reply to an existing one! No account required.</h3>
       <div className="post-buttons">
         <button className="post-button" onClick={() => setShowPostPictureForm(true)}>Post a Picture</button>
         <button className="post-button" onClick={() => setShowDiscussionForm(true)}>Start a Discussion</button>
+        <button className="post-button" onClick={() => setShowPollForm(true)}>Start a Poll</button>
       </div>
 
       {showPostPictureForm && (
@@ -77,28 +110,42 @@ const Forum = () => {
       )}
 
       {showDiscussionForm && (
-        <DiscussionForm onSubmit={handlePostSubmit} onClose={() => setShowDiscussionForm(false)} />
+        <DiscussionForm onSubmit={handleDiscussionSubmit} onClose={() => setShowDiscussionForm(false)} />
+      )}
+
+      {showPollForm && (
+        <PollForm onSubmit={handlePollSubmit} onClose={() => setShowPollForm(false)} /> 
       )}
 
       <div className="posts">
         {posts.map((post, index) => (
-          <div className={`post ${post.type === 'poll' ? 'poll-post' : 'discussion-post'}`} key={index}>
+          <div className="post" key={index}>
             <div className="user-info">
-              {post.type !== 'poll' && (
-                <>
-                  <h3>{post.user || 'Anonymous'}</h3>
-                  <button className="add-friend-button" onClick={() => handleAddFriend(post.user)}>Add User as Friend</button>
-                  <button className="delete-post-button" onClick={() => handleDeletePost(index)}>Delete Post</button>
-                </>
-              )}
+              <h3>{post.postAs === 'anonymous' ? 'Anonymous' : 'User'}</h3>
+              <button className="add-friend-button" onClick={() => handleDeletePost(index)}>Delete Post</button>
             </div>
             {post.type === 'picture' && (
-              <div className="post-image">
-                <img src={URL.createObjectURL(post.picture)} alt="Post" className="post-image-content" />
-              </div>
+              <>
+                <div className="post-image">
+                  <img src={URL.createObjectURL(post.picture)} alt="Post" className="post-image-content" />
+                </div>
+                <div className="post-caption">
+                  <p>{post.caption}</p>
+                  {post.recipe && (
+                    <div className="expandable-caption">
+                      <button onClick={() => setRepliesVisible(prevState => ({ ...prevState, [`discussion${index}`]: !prevState[`discussion${index}`] }))}>
+                        {repliesVisible[`discussion${index}`] ? 'Show Less' : 'Show More'}
+                      </button>
+                      {repliesVisible[`discussion${index}`] && (
+                        <p>{post.recipe}</p>
+                      )}
+                    </div>
+                  )}
+                </div>
+              </>
             )}
             {post.type === 'discussion' && (
-              <div className="discussion-post-content">
+              <div className="newdiscussion-post">
                 <h4>{post.title}</h4>
                 <p>{post.description}</p>
                 <button className="replies-toggle" onClick={() => setRepliesVisible(prevState => ({ ...prevState, [`discussion${index}`]: !prevState[`discussion${index}`] }))}>
@@ -106,43 +153,49 @@ const Forum = () => {
                 </button>
                 {repliesVisible[`discussion${index}`] && (
                   <div className="replies">
-                    {/* show replies here!! */}
+                    {/* Reply section */}
                   </div>
                 )}
               </div>
             )}
             {post.type === 'poll' && (
-              <div className="poll-post-content">
+              <div className="discussion-post">
                 <h4>{post.title}</h4>
                 <p>{post.description}</p>
-                {voted && <p className="poll-ended">You have voted. See current results:</p>}
+
+                {post.voted && (
+                  <p className="poll-ended">You have voted. See current results:</p>
+                )}
+
                 <div className="poll-results">
-                  {Object.keys(post.options).map((option) => (
+                  {Object.keys(post.options || {}).map((option) => (
                     <div key={option} className="poll-option">
-                      <div className="option-label">{post.options[option].label}</div>
+                      <div className="option-label">{post.options[option]?.label || 'Unknown'}</div>
                       <div className="option-bar">
-                        <div className="option-bar-fill" style={{ width: `${calculatePercentage(post.options[option].votes)}%` }}>
-                          {calculatePercentage(post.options[option].votes)}%
+                        <div className="option-bar-fill" style={{ width: `${calculatePercentage(post.options[option]?.votes || 0)}%` }}>
+                          {calculatePercentage(post.options[option]?.votes || 0)}%
                         </div>
                       </div>
                     </div>
                   ))}
                 </div>
-                {!voted && (
+
+                {!post.voted && (
                   <div className="poll-options">
-                    {Object.keys(post.options).map((option) => (
-                      <button key={option} className="poll-button" onClick={() => handleVote(option)} disabled={voted}>
-                        {post.options[option].label}
+                    {Object.keys(post.options || {}).map((option) => (
+                      <button key={option} className="poll-button" onClick={() => handleVote(option)} disabled={post.voted}>
+                        {post.options[option]?.label || 'Unknown'}
                       </button>
                     ))}
                   </div>
                 )}
-                <button className="replies-toggle" onClick={() => setRepliesVisible(prevState => ({ ...prevState, [`poll${index}`]: !prevState[`poll${index}`] }))}>
-                  {repliesVisible[`poll${index}`] ? 'Hide Replies' : 'Show Replies'}
+
+                <button className="replies-toggle" onClick={() => setRepliesVisible(prevState => ({ ...prevState, [`discussion${index}`]: !prevState[`discussion${index}`] }))}>
+                  {repliesVisible[`discussion${index}`] ? 'Hide Replies' : 'Show Replies'}
                 </button>
-                {repliesVisible[`poll${index}`] && (
+                {repliesVisible[`discussion${index}`] && (
                   <div className="replies">
-                    {/* reply section */}
+                    {/* Reply section */}
                   </div>
                 )}
               </div>
@@ -150,7 +203,7 @@ const Forum = () => {
           </div>
         ))}
 
-        {/* Example static posts for visual purposes*/}
+        {/* Example Static Posts */}
         <div className="post">
           <div className="user-info">
             <h3>User1111</h3>
@@ -170,14 +223,13 @@ const Forum = () => {
             <button className="add-friend-button" onClick={() => handleAddFriend('User2222')}>Add User as Friend</button>
           </div>
           <div className="post-image">
-            <img src={chocolatecake} alt="ChocolateCake" className="post-image-content" />
+            <img src={chocolatecake} alt="Chocolate Cake" className="post-image-content" />
           </div>
           <div className="post-caption">Delicious chocolate cake I made yesterday!</div>
         </div>
 
-
-         {/* Discussion Posts */}
-         <div className="discussion-post">
+        {/* Discussion Posts */}
+        <div className="discussion-post">
           <h4>What are your favorite quick dinner recipes?</h4>
           <p>I'm looking for some quick and easy dinner ideas for weeknights. What are your go-to recipes?</p>
           <button className="replies-toggle" onClick={() => setRepliesVisible(prevState => ({ ...prevState, discussion1: !prevState.discussion1 }))}>
@@ -204,43 +256,46 @@ const Forum = () => {
           )}
         </div>
 
+        {/* New Discussion Post with Poll */}
+        <div className="discussion-post">
+          <h4>Which recipe should I make tonight?</h4>
+          <p>Like the title says, I'm wondering what I should make tonight?</p>
 
-        
-        <div className="post">
-          <div className="poll-post-content">
-            <h4>Help me decide what to cook tonight!</h4>
-            <p>Like the title says, I'm wondering what I should make tonight?</p>
-            {voted && <p className="poll-ended">You have voted. See current results:</p>}
-            <div className="poll-results">
-              {Object.keys(pollOptions).map((option) => (
-                <div key={option} className="poll-option">
-                  <div className="option-label">{pollOptions[option].label}</div>
-                  <div className="option-bar">
-                    <div className="option-bar-fill" style={{ width: `${calculatePercentage(pollOptions[option].votes)}%` }}>
-                      {calculatePercentage(pollOptions[option].votes)}%
-                    </div>
+          {voted && (
+            <p className="poll-ended">You have voted. See current results:</p>
+          )}
+
+          <div className="poll-results">
+            {Object.keys(pollOptions || {}).map((option) => (
+              <div key={option} className="poll-option">
+                <div className="option-label">{pollOptions[option]?.label || 'Unknown'}</div>
+                <div className="option-bar">
+                  <div className="option-bar-fill" style={{ width: `${calculatePercentage(pollOptions[option]?.votes || 0)}%` }}>
+                    {calculatePercentage(pollOptions[option]?.votes || 0)}%
                   </div>
                 </div>
+              </div>
+            ))}
+          </div>
+
+          {!voted && (
+            <div className="poll-options">
+              {Object.keys(pollOptions || {}).map((option) => (
+                <button key={option} className="poll-button" onClick={() => handleVote(option)} disabled={voted}>
+                  {pollOptions[option]?.label || 'Unknown'}
+                </button>
               ))}
             </div>
-            {!voted && (
-              <div className="poll-options">
-                {Object.keys(pollOptions).map((option) => (
-                  <button key={option} className="poll-button" onClick={() => handleVote(option)} disabled={voted}>
-                    {pollOptions[option].label}
-                  </button>
-                ))}
-              </div>
-            )}
-            <button className="replies-toggle" onClick={() => setRepliesVisible(prevState => ({ ...prevState, [`poll${1}`]: !prevState[`poll${1}`] }))}>
-              {repliesVisible[`poll${1}`] ? 'Hide Replies' : 'Show Replies'}
-            </button>
-            {repliesVisible[`poll${1}`] && (
-              <div className="replies">
-                {/* reply section */}
-              </div>
-            )}
-          </div>
+          )}
+
+          <button className="replies-toggle" onClick={() => setRepliesVisible(prevState => ({ ...prevState, discussion3: !prevState.discussion3 }))}>
+            {repliesVisible.discussion3 ? 'Hide Replies' : 'Show Replies'}
+          </button>
+          {repliesVisible.discussion3 && (
+            <div className="replies">
+              {/* reply section */}
+            </div>
+          )}
         </div>
       </div>
     </div>

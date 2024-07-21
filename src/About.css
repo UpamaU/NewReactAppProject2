@@ -21,6 +21,8 @@
 .about-card h2 {
   font-size: 1.7rem; 
   color: #333;
+  text-decoration: underline;
+  
 }
 
 .about-card p {

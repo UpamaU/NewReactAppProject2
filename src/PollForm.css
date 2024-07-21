@@ -1,0 +1,82 @@
+.poll-form {
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    margin: auto;
+  }
+  
+  .poll-form h2 {
+    margin-top: 0;
+    color: #333;
+  }
+  
+  .poll-form form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .poll-form label {
+    margin: 5px 0;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .poll-form input[type="text"],
+  .poll-form textarea {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .poll-form textarea {
+    resize: vertical; /* Allows vertical resizing only */
+    height: 100px; /* Default height for the description field */
+  }
+  
+  .poll-form button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 5px 0;
+    border-radius: 5px;
+  }
+  
+  .poll-form button:hover {
+    background-color: #0056b3;
+  }
+  
+  .poll-form .cancel-button {
+    background-color: #6c757d;
+  }
+
+  .poll-form .remove-option-button{
+    background-color: #6c757d;
+  }
+  
+  .poll-form .cancel-button:hover {
+    background-color: #5a6268;
+  }
+  
+  .remove-option-button {
+    background-color: #ff4d4d;
+  }
+  
+  .remove-option-button:hover {
+    background-color: #cc0000;
+  }
+  
+  .add-option-button {
+    background-color: #28a745;
+  }
+  
+  .add-option-button:hover {
+    background-color: #218838;
+  }
+  
