@@ -46,7 +46,7 @@ h1 a {
 }
 
 .sign-in i, .log-out i, .language-switch i {
-  margin-right: 8px; /* Space between icon and text */
+  margin-right: 8px; 
 }
 
 .language-switch {
@@ -113,7 +113,7 @@ nav ul {
 nav a {
   color: white;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1.2rem; 
 }
 
 nav a:hover {
@@ -129,15 +129,32 @@ nav a:hover {
   .sign-in, .log-out, .language-switch {
     margin-top: 10px;
     position: static;
+    font-size: 0.8rem; /* smaller font size */
+    padding: 7px 15px; 
   }
 
   .sign-in-form {
     position: static;
-    width: calc(100% - 40px);
+    width: auto; 
+    margin: 10px 0; 
+  }
+
+  nav {
+    padding: 5px 10px; 
   }
 
   nav ul {
-    flex-direction: column;
-    align-items: center;
+    gap: 10px; 
   }
+
+  nav a {
+    font-size: 1.2rem; 
+  }
+  h1 {
+    font-size: 2.0rem;
+    margin: 0;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
 }
