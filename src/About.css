@@ -11,6 +11,7 @@
 .about-card {
   width: 100%; 
   padding: 20px;
+  max-width: 1000px; 
   background-color: #D3D3D3;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;

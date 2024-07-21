@@ -32,6 +32,37 @@ const About = () => {
             : 'Merci de faire partie de notre aventure et nous espérons continuer à vous voir ici.'}
         </p>
       </section>
+      <section className="about-card" aria-labelledby="faq-heading">
+        <h2 id="faq-heading">
+          {i18n.language === 'en' ? 'Frequently Asked Questions' : 'Questions Fréquemment Posées'}
+        </h2>
+        <div className="faq">
+          <h3>{i18n.language === 'en' ? 'Are my posts really anonymous?' : 'Mes publications sont-elles vraiment anonymes ?'}</h3>
+          <p>
+            {i18n.language === 'en'
+              ? 'Yes, if you choose to post as anonymous, your identity will not be displayed.'
+              : 'Oui, si vous choisissez de publier en tant qu\'anonyme, votre identité ne sera pas affichée.'}
+          </p>
+          <h3>{i18n.language === 'en' ? 'How can I delete my post?' : 'Comment puis-je supprimer ma publication ?'}</h3>
+          <p>
+            {i18n.language === 'en'
+              ? 'You can delete your post by clicking the "Delete Post" button on your post.'
+              : 'Vous pouvez supprimer votre publication en cliquant sur le bouton "Supprimer la publication" sur votre publication.'}
+          </p>
+          <h3>{i18n.language === 'en' ? 'How do I become a member?' : 'Comment devenir membre ?'}</h3>
+          <p>
+            {i18n.language === 'en'
+              ? 'To become a member, simply sign up on our website. It\'s free and easy!'
+              : 'Pour devenir membre, inscrivez-vous simplement sur notre site Web. C\'est gratuit et facile !'}
+          </p>
+          <h3>{i18n.language === 'en' ? 'Do you save the pictures I upload?' : 'Enregistrez-vous les photos que je télécharge ?'}</h3>
+          <p>
+            {i18n.language === 'en'
+              ? 'No, we don\'t save any pictures you upload. They are stored temporarily for display purposes only.'
+              : 'Non, nous n\'enregistrons pas les photos que vous téléchargez. Elles sont stockées temporairement à des fins d\'affichage uniquement.'}
+          </p>
+        </div>
+      </section>
     </main>
   );
 };
