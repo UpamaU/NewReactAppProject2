@@ -13,7 +13,7 @@ const Forum = () => {
     discussion3: false,
   });
 
-  // Initialize poll options from local storage or set default values
+  // Initializing poll options from local storage or set default values
   const initialPollOptions = () => {
     const storedOptions = localStorage.getItem('pollOptions');
     return storedOptions ? JSON.parse(storedOptions) : {

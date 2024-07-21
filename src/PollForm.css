@@ -42,8 +42,8 @@
   }
   
   .poll-form textarea {
-    resize: vertical; /* Allows vertical resizing only */
-    height: 100px; /* Default height for the description field */
+    resize: vertical; 
+    height: 100px; 
   }
   
   .poll-form button {

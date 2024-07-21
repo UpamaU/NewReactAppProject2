@@ -87,7 +87,7 @@ const PollForm = ({ onSubmit, onClose }) => {
               type="button" 
               className="remove-option-button" 
               onClick={() => removeExtraOption(index)}
-              disabled={extraOptions.length < 1} // Disable if only one extra option remains
+              disabled={extraOptions.length < 1} 
             >
               Remove
             </button>

@@ -74,10 +74,10 @@
 .recipe-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 20px; /* Reduced gap between cards */
+  gap: 20px; 
   justify-items: center;
-  max-width: 70%; /* Limit width of cards */
-  margin: 0 auto; /* Center the grid */
+  max-width: 70%; 
+  margin: 0 auto; 
 }
 
 .recipe-card {
