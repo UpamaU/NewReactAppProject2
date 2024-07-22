@@ -11,10 +11,9 @@ const Forum = () => {
     discussion1: false,
     discussion2: false,
     discussion3: false,
-    lasagnaPost: false,  // Added unique key for lasagna post
+    lasagnaPost: false,
   });
 
-  // Initializing poll options from local storage or set default values
   const initialPollOptions = () => {
     const storedOptions = localStorage.getItem('pollOptions');
     return storedOptions ? JSON.parse(storedOptions) : {
@@ -31,13 +30,18 @@ const Forum = () => {
   const [showDiscussionForm, setShowDiscussionForm] = useState(false);
   const [showPollForm, setShowPollForm] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [newPoll, setNewPoll] = useState(false); 
 
   useEffect(() => {
     localStorage.setItem('pollOptions', JSON.stringify(pollOptions));
   }, [pollOptions]);
 
   const handleVote = (option) => {
-    if (!voted) {
+    if (newPoll) {
+      alert("Cannot vote on your own poll.");
+      return; // so that user cant vote on their own poll 
+    }
+    if (!voted && pollOptions[option]) {
       setPollOptions((prevOptions) => ({
         ...prevOptions,
         [option]: {
@@ -80,21 +84,22 @@ const Forum = () => {
 
   const handlePostSubmit = (post) => {
     setPosts([...posts, post]);
-    setShowPostPictureForm(false); // Hide form after submission
+    setShowPostPictureForm(false);
   };
 
   const handleDiscussionSubmit = (discussion) => {
     setPosts([...posts, { ...discussion, type: 'discussion' }]);
-    setShowDiscussionForm(false); // Hide form after submission
+    setShowDiscussionForm(false);
   };
 
   const handlePollSubmit = (poll) => {
     setPosts([...posts, { ...poll, type: 'poll' }]);
-    setShowPollForm(false); // Hide form after submission
+    setShowPollForm(false);
+    setNewPoll(true); 
   };
 
   const handleDeletePost = (index) => {
-    setPosts(posts.filter((_, i) => i !== index)); // Remove post by index
+    setPosts(posts.filter((_, i) => i !== index));
   };
 
   return (
@@ -115,7 +120,7 @@ const Forum = () => {
       )}
 
       {showPollForm && (
-        <PollForm onSubmit={handlePollSubmit} onClose={() => setShowPollForm(false)} /> 
+        <PollForm onSubmit={handlePollSubmit} onClose={() => setShowPollForm(false)} />
       )}
 
       <div className="posts">
@@ -257,7 +262,7 @@ const Forum = () => {
           )}
         </div>
 
-        {/* New Discussion Post with Poll */}
+        {/* Static Poll Post */}
         <div className="discussion-post">
           <h4>Which recipe should I make tonight?</h4>
           <p>Like the title says, I'm wondering what I should make tonight?</p>
@@ -289,12 +294,12 @@ const Forum = () => {
             </div>
           )}
 
-          <button className="replies-toggle" onClick={() => setRepliesVisible(prevState => ({ ...prevState, discussion3: !prevState.discussion3 }))}>
+          <button className="replies-toggle" onClick={() => setRepliesVisible(prevState => ({ ...prevState, discussion3: !prevState[`discussion3`] }))}>
             {repliesVisible.discussion3 ? 'Hide Replies' : 'Show Replies'}
           </button>
           {repliesVisible.discussion3 && (
             <div className="replies">
-              {/* reply section */}
+              {/* Reply section */}
             </div>
           )}
         </div>
