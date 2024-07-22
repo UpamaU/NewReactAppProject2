@@ -4,13 +4,14 @@ import lasagnaPic from './images/lasagna.png';
 import chocolatecake from './images/chocolatecake.png';
 import PostPictureForm from './PostPictureForm.js';
 import DiscussionForm from './DiscussionForm.js';
-import PollForm from './PollForm.js'; 
+import PollForm from './PollForm.js';
 
 const Forum = () => {
   const [repliesVisible, setRepliesVisible] = useState({
     discussion1: false,
     discussion2: false,
     discussion3: false,
+    lasagnaPost: false,  // Added unique key for lasagna post
   });
 
   // Initializing poll options from local storage or set default values
@@ -214,7 +215,7 @@ const Forum = () => {
           </div>
           <div className="post-caption">
             Check out my homemade lasagna!
-            <ExpandableCaption expanded={repliesVisible.discussion1} toggleExpand={() => setRepliesVisible(prevState => ({ ...prevState, discussion1: !prevState.discussion1 }))} />
+            <ExpandableCaption expanded={repliesVisible.lasagnaPost} toggleExpand={() => setRepliesVisible(prevState => ({ ...prevState, lasagnaPost: !prevState.lasagnaPost }))} />
           </div>
         </div>
         <div className="post">
